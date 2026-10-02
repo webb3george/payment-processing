@@ -14,6 +14,12 @@ class Settings(BaseSettings):
     outbox_poll_interval_seconds: float = 1.0
     outbox_batch_size: int = 50
 
+    consumer_prefetch_count: int = 10
+    webhook_timeout_seconds: float = 10.0
+    gateway_min_delay_seconds: float = 2.0
+    gateway_max_delay_seconds: float = 5.0
+    gateway_success_rate: float = 0.9
+
 
 @lru_cache
 def get_settings() -> Settings:
