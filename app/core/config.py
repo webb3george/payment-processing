@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     rabbitmq_url: str
     api_key: SecretStr
 
+    outbox_poll_interval_seconds: float = 1.0
+    outbox_batch_size: int = 50
+
 
 @lru_cache
 def get_settings() -> Settings:
