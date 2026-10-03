@@ -5,6 +5,7 @@ DLQ_NAME = "payments.dlq"
 
 # Паузы перед 2-й и 3-й попытками, мс. Всего попыток = len(RETRY_DELAYS_MS) + 1.
 RETRY_DELAYS_MS = (2_000, 4_000)
+MAX_ATTEMPTS = len(RETRY_DELAYS_MS) + 1
 
 PAYMENTS_EXCHANGE = RabbitExchange("payments", type=ExchangeType.DIRECT, durable=True)
 DLX_EXCHANGE = RabbitExchange("payments.dlx", type=ExchangeType.DIRECT, durable=True)
