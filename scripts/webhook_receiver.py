@@ -1,13 +1,13 @@
 """Приёмник webhook для ручной проверки.
 
-Запуск: python scripts/webhook_receiver.py [порт] [--fail]
-С флагом --fail отвечает 500, чтобы проверить повторы и DLQ.
+Запуск: python scripts/webhook_receiver.py [порт] [--fail] [--public].
 """
 
 import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 FAIL = "--fail" in sys.argv
+HOST = "0.0.0.0" if "--public" in sys.argv else "127.0.0.1"
 PORT = next((int(arg) for arg in sys.argv[1:] if arg.isdigit()), 9000)
 
 
@@ -24,5 +24,5 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    print(f"Listening on 127.0.0.1:{PORT} (fail={FAIL})", flush=True)
-    HTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
+    print(f"Listening on {HOST}:{PORT} (fail={FAIL})", flush=True)
+    HTTPServer((HOST, PORT), Handler).serve_forever()
